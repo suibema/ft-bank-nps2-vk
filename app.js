@@ -1,9 +1,8 @@
 (() => {
 
-  // TODO: подставишь invoke URL YC Function (БЕЗ /submit)
   const BACKEND_URL = "https://functions.yandexcloud.net/d4e1id3b0ckdmjkvt72j";
 
-  const FORM_ID = "nps_1"; // идентификатор миниаппа (для одного универсального бэка)
+  const FORM_ID = "nps_2";
 
   const form = document.getElementById("nps-form");
   const submitBtn = document.getElementById("submit-btn");
