@@ -7,6 +7,36 @@
 
   <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
   <link rel="stylesheet" href="./styles.css" />
+    <script>
+    (async () => {
+      try {
+        await vkBridge.send('VKWebAppInit');
+
+        const u = await vkBridge.send('VKWebAppGetUserInfo');
+        document.getElementById('user').textContent = `User: ${u.first_name} ${u.last_name} (id: ${u.id})`;
+
+        const { access_token } = await vkBridge.send('VKWebAppGetAuthToken', {
+          app_id: 54443582,
+          scope: ''
+        });
+
+        const apiResp = await vkBridge.send('VKWebAppCallAPIMethod', {
+          method: 'users.get',
+          params: { v: '5.199', access_token }
+        });
+        console.log('users.get raw:', apiResp);
+        document.getElementById('api').textContent = JSON.stringify(apiResp.response || apiResp, null, 2);
+
+        const launch = await vkBridge.send('VKWebAppGetLaunchParams');
+        console.log('Launch (bridge):', launch);
+        document.getElementById('lp').textContent = JSON.stringify(launch, null, 2);
+
+      } catch (e) {
+        console.error('Bridge error:', e);
+        document.getElementById('user').textContent = 'Error: ' + (e?.message || e);
+      }
+    })();
+  </script>
 </head>
 <body>
   <h2>Форма обратной связи</h2>
@@ -61,6 +91,14 @@
            data-left="совсем не доволен(-а)"
            data-right="очень доволен(-а)"></div>
       <p class="error" data-err="q8" style="display:none;"></p>
+    </div>
+
+    <div class="q">
+      <div class="q-title">
+        6. В поле ниже вы можете поделиться своими впечатлениями о процессе отбора на Стажировку в банке.
+    </div>
+    <textarea id="free-text" name="free" class="free-text" rows="4"
+            placeholder="Напишите, что можно улучшить или что понравилось…"></textarea>
     </div>
 
     <p class="error" id="error-global" style="display:none;"></p>
