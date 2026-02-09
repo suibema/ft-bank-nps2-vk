@@ -101,7 +101,8 @@ label {
    Inputs
 ========================= */
 input,
-select {
+select,
+textarea {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
@@ -120,7 +121,8 @@ select option {
 }
 
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
   outline: none;
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px rgba(255, 231, 0, 0.35);
@@ -374,7 +376,7 @@ button:active {
   padding: 2px 2px 0;
 }
 
-/* "Не могу оценить" */
+
 .scale-na {
   grid-column: 1 / -1;
   margin-top: 8px;
@@ -403,10 +405,9 @@ button:active {
   box-shadow: 0 0 0 3px rgba(255, 231, 0, 0.35);
 }
 
-/* ===== Мобилка: всё равно 10 в ряд (как ты просил) ===== */
 @media (max-width: 600px) {
   .scale {
-    grid-template-columns: repeat(10, 1fr); /* важно: НЕ 5 */
+    grid-template-columns: repeat(10, 1fr);
     gap: 4px;
   }
 
@@ -419,4 +420,9 @@ button:active {
   .scale-hint {
     font-size: 0.8rem;
   }
+}
+
+.free-text {
+  resize: vertical;
+  min-height: 90px;
 }
