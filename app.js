@@ -145,6 +145,13 @@
       }
     }
 
+    const freeTextEl = document.getElementById("free-text");
+    const freeText = (freeTextEl?.value || "").trim();
+    if (freeText) {
+      answers.free = freeText;
+    }
+
+
     if (!ok) return;
 
     submitBtn.disabled = true;
